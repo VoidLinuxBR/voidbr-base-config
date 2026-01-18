@@ -34,7 +34,7 @@ shopt -s extglob
 #set -o noclobber   #bloquear substituicao de arquivo existente
 set +o noclobber    #liberar  substituicao de arquivo existente. operator >| ignore the noclobbeer
 export ROOTDIR=${PWD#/} ROOTDIR=/${ROOTDIR%%/*}
-export PATH=".:/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/sbin:$HOME/.cargo/bin"
+export PATH=".:/usr/bin:/usr/sbin:/bin:/sbin:/tools/bin:/usr/local/bin:/usr/local/sbin:$HOME/bin:$HOME/.local/bin:$HOME/sbin:$HOME/.cargo/bin:$PATH"
 export CDPATH=".:..:~"
 export VISUAL=nano
 export EDITOR=nano
