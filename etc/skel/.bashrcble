@@ -4,7 +4,7 @@
 
 # ----- PATH Configuration -----
 # Add custom and standard binary locations to PATH for command execution
-PATH="$PATH:.:$HOME/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/usr/games:/sbin:$HOME/bin:$HOME/.local/bin:"
+#export PATH="$PATH:.:$HOME/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/usr/games:/sbin:$HOME/bin:$HOME/.local/bin:"
 
 #Isso força o dialog a usar caracteres ASCII básicos para as bordas.
 #Testa se o terminal suporta caracteres gráficos estendidos
