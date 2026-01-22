@@ -4,7 +4,7 @@
 #source /etc/bashrc
 #source ~/.bashrcfull
 #source /usr/share/fetch/core.sh
-export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/packages/scratchpkg:$PATH"
+#export PATH="/bin:/usr/bin:/sbin:/usr/sbin:/packages/scratchpkg:$PATH"
 #export PS1='${chroot:+($debian_chroot)}\u@\h:\$\[\033[01;34m\]\w\[\e[1;31m\]\$ \[\033[00m\]'
 #export PS1="\e[32;1m\u \e[33;1mâ†’ \e[36;1m\h \e[37;0m\w\n\e[35;1mâ# \e[m"
 #export PS1="[ $green\u$yellow@$cyan\h$yellow\w$magenta ] # "
