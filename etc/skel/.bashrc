@@ -128,7 +128,6 @@ fi
 
 [ -f ~/.fzf.bash   ] && . ~/.fzf.bash
 [ -f ~/.bashrcfull ] && . ~/.bashrcfull
-[ -f ~/.bashrckali ] && . ~/.bashrckali
 [ -f /etc/bashrc   ] && . /etc/bashrc
 [ -f ~/.bashrckali ] && . ~/.bashrckali
 #
