@@ -2,9 +2,6 @@
 # ~/.bash_profile
 #
 
-if command -v hostnamectl; then
-    hostnamectl
-fi
 timenow="$(date +'%H:%M')"
 load="$(awk '{print $1 ", " $2 ", " $3}' /proc/loadavg)"
 
