@@ -17,21 +17,21 @@ menuentry "Windows Boot Manager" \
     chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 }
 
-menuentry "UEFI Firmware Settings" \
-   --class firmware \
-   --class efi {
-    fwsetup
-}
+#menuentry "UEFI Firmware Settings" \
+#   --class firmware \
+#   --class efi {
+#    fwsetup
+#}
 
-menuentry "Memtest86+" \
-   --class memtest \
-   --class system {
-    insmod part_gpt
-    insmod part_msdos
-    insmod linux
-    search --no-floppy --file --set=root /boot/memtest86+.bin
-    linux16 /boot/memtest86+.bin
-}
+#menuentry "Memtest86+" \
+#   --class memtest \
+#   --class system {
+#    insmod part_gpt
+#    insmod part_msdos
+#    insmod linux
+#    search --no-floppy --file --set=root /boot/memtest86+.bin
+#    linux16 /boot/memtest86+.bin
+#}
 
 menuentry "Restart Computer" \
    --class restart \
