@@ -126,6 +126,37 @@ if ! shopt -oq posix; then
 	fi
 fi
 
+# ----- GRC-RS Configuration -----
+# Enable colorized output for various commands
+GRC="/usr/bin/grc"
+if tty -s && [ -n "$TERM" ] && [ "$TERM" != "dumb" ] && command -v "$GRC" >/dev/null; then
+
+  # Define um alias para facilitar a aplicação do grc-rs nos comandos.
+  alias colourify="$GRC"
+
+  # Lista de comandos que serão configurados para saída colorida.
+  commands=(
+    ant blkid configure df diff dig dnf docker-machinels dockerimages dockerinfo
+    dockernetwork dockerps dockerpull dockersearch dockerversion du fdisk
+    findmnt go-test ifconfig iostat_sar ip ipaddr ipneighbor iproute iptables
+    irclog iwconfig kubectl last ldap lolcat lsattr lsblk lsmod lsof lspci
+    lsusb mount mtr mvn netstat nmap ntpdate ping ping2 proftpd pv
+    semanageboolean semanagefcontext semanageuser sensors showmount sockstat
+    ss stat sysctl tcpdump traceroute tune2fs ulimit uptime vmstat wdiff yaml
+  )
+
+  # Itera pela lista de comandos e cria um alias apenas se o comando existir.
+  for cmd in "${commands[@]}"; do
+    if command -v "$cmd" >/dev/null; then
+      alias "$cmd"="colourify $cmd"
+    fi
+  done
+
+  # Remove as variáveis temporárias para evitar poluição do ambiente.
+  unset commands cmd
+fi
+
+
 [ -f ~/.fzf.bash   ] && . ~/.fzf.bash
 [ -f ~/.bashrcfull ] && . ~/.bashrcfull
 [ -f /etc/bashrc   ] && . /etc/bashrc
