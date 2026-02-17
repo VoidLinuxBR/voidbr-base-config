@@ -142,7 +142,7 @@ if tty -s && [ -n "$TERM" ] && [ "$TERM" != "dumb" ] && command -v "$GRC" >/dev/
     irclog iwconfig kubectl last ldap lolcat lsattr lsblk lsmod lsof lspci
     lsusb mount mtr mvn netstat nmap ntpdate ping ping2 proftpd pv
     semanageboolean semanagefcontext semanageuser sensors showmount sockstat
-    ss stat sysctl tcpdump traceroute tune2fs ulimit uptime vmstat wdiff yaml
+    ss stat sysctl tcpdump traceroute tune2fs uptime vmstat wdiff yaml
   )
 
   # Itera pela lista de comandos e cria um alias apenas se o comando existir.
