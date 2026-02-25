@@ -542,11 +542,13 @@ gpull() {
 }
 
 gpush() {
+    local name=$(gh api user --jq '.name')
+    local email=$(gh api user --jq '.email')
 	log_wait_msg "${red}Iniciando git push ${reset}"
 	sudo git config credential.helper store
 #	sudo git add .
 	sudo git add -A
-	sudo git commit -m "$(date) nome_do_usuario (usuario@gmail.com)"
+    sudo git commit -m "$(date) $name ($email)"
 	sudo git push --force
 }
 
@@ -556,6 +558,8 @@ gto() {
 }
 
 gclean(){
+    local name=$(gh api user --jq '.name')
+    local email=$(gh api user --jq '.email')
 	#Execute o seguinte comando para fazer backup do seu branch atual:
 	sudo git branch backup_branch
 	#Execute o seguinte comando para criar um novo branch a partir do atual, mas sem nenhum histórico de commits:
@@ -563,7 +567,7 @@ gclean(){
 	#Agora, todos os arquivos do projeto aparecerão como "untracked". Adicione todos eles ao staging area com o comando:
 	sudo git add .
 	#Comite os arquivos com uma mensagem de confirmação:
-	sudo git commit -m "Initial commit"
+    sudo git commit -m "Restart commit - $(date) $name ($email)"
 	#Finalmente, sobrescreva o branch atual com o novo branch criado:
 	sudo git branch -M new_branch
 }
