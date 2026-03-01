@@ -2,10 +2,9 @@ name: Criar release e arquivo .tar.gz
 
 # Gatilhos para o workflow
 on:
-  push:
-    branches:
-      - main
-
+  #  push:
+  #    branches:
+  #      - main
   workflow_dispatch: # Permite a execução manual do workflow
     inputs:
       debug_enabled: # Input para habilitar o modo de depuração
@@ -13,18 +12,14 @@ on:
         description: "With TMATE"
         required: false
         default: false
-
   #  schedule:  # Executa automaticamente toda sexta-feira às 05:00
   #    - cron: '0 5 * * 5'
-
   repository_dispatch: # Permite a execução através de eventos de webhook
     types:
       - webhook
       - "**"
 
-# Jobs do workflow
 jobs:
-  # Job para obter a hora atual
   get-time:
     runs-on: ubuntu-latest
     outputs:
