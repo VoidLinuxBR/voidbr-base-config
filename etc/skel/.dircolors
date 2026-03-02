@@ -327,6 +327,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3
 .chi.zst.sha256       38;5;101
 .chi.zst.desc         38;5;101
 .chi.zst              38;5;101
+.xbps                 38;5;126
 .chi                  38;5;101;1
 .zst                  38;5;101
 
