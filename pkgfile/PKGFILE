@@ -25,7 +25,7 @@ package() {
 	local dirs=('usr' 'etc' 'opt' 'boot' 'boot')
 	for dir in "${dirs[@]}"; do
 		if [ -d "${InternalDir}/${dir}" ]; then
-			cp -a "${InternalDir}/${dir}" "${pkgdir}/"
+			cp -Ra "${InternalDir}/${dir}" "${pkgdir}/"
 		fi
 	done
 
