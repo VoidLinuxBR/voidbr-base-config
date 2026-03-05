@@ -21,8 +21,11 @@ package() {
 		InternalDir="${srcdir}/${pkgname}"
 	fi
 
+	echo $InternalDir
+	exit 0
+
 	# Copiar a estrutura de /etc, /usr e /opt para /
-	local dirs=('usr' 'etc' 'opt' 'boot' 'boot')
+	local dirs=('usr' 'etc' 'opt' 'boot')
 	for dir in "${dirs[@]}"; do
 		if [ -d "${InternalDir}/${dir}" ]; then
 			cp -Ra "${InternalDir}/${dir}" "${pkgdir}/"
