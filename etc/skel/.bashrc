@@ -172,3 +172,4 @@ export PS4=$'${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
 # . ~/.ps1
 # . ~/.ps1ok
 # . ~/.ps1powerline
+stty -ixon

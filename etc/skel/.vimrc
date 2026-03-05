@@ -1,4 +1,3 @@
-" ===============================
 " VIMRC - rápido, limpo e forte
 " ===============================
 
@@ -9,19 +8,31 @@ syntax on
 " -------------------------------
 " Interface
 " -------------------------------
-set number
+set nu!
 set ruler
 set showcmd
 set showmatch
 set cursorline
 set title
 set laststatus=2
+set confirm
 set showmode
+" color murphy
+
+call plug#begin('~/.vim/plugged')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
+" Configuração do airline
+let g:airline_theme = 'voidbrairline'
+let g:airline_voidbrairline_showmod = 1
 
 " -------------------------------
 " Indentação
 " -------------------------------
 set autoindent
+set incsearch
 set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -109,7 +120,7 @@ set statusline+=\ %p%%
 " Abrir direto em INSERT
 " -------------------------------
 autocmd VimEnter * startinsert
-
+:
 " -------------------------------
 " Navegação em linhas longas
 " -------------------------------
@@ -182,3 +193,5 @@ inoremap <C-y> <Esc><C-r>
 
 nnoremap <C-e> D
 inoremap <C-e> <Esc>Di
+
+map q :quit<CR>
