@@ -1398,3 +1398,27 @@ makebash() {
 	#echo $(replicate '=' 80)
 	log_msg "Feito! arquivo ${yellow}'$prg' ${reset}criado on $PWD"
 } # makebash
+
+cpc() {
+	origem=$(cut -d':' -f1 <<<"$1")
+	destino=$(awk -F'/usr' '{print "/usr"$2}' <<<"$1" | cut -d':' -f1)
+	sudo cp -v $origem $destino
+}
+
+xcopyc() {
+	local args=("$@")
+	if [ "${#args[@]}" -lt 2 ]; then
+		echo "Descrição: Esta função copia arquivos e diretórios da origem para o destino preservando a estrutura de diretórios."
+		echo -e "\e[1;31mErro: Esta função requer exatamente dois parâmetros: origem e destino.\e[0m"
+		echo "   Uso: xcopyc <origem> <destino>"
+		echo "        xcopyc *.log   /lixo/archived"
+		echo "        xcopyc .       /lixo/archived"
+		echo "        xcopyc $HOME/files/.  /lixo/archived"
+		return 1
+	fi
+	local origem="${*:1:$#-1}"
+	local destino="${*: -1}"
+	set -f
+	eval "rsync -av --perms --progress --relative $origem \"$destino\""
+	set +f
+}
