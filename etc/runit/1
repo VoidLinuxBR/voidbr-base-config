@@ -1,0 +1,26 @@
+#!/bin/sh
+# vim: set ts=4 sw=4 et:
+
+PATH=/usr/bin:/usr/sbin
+export PATH
+
+. /etc/runit/functions
+
+echo "${bright_yellow}Bem-vindo ao VoidBR! <https://voidbr.org>${rst}"
+
+# Carrega configuração se existir
+if [ -r /etc/rc.conf ]; then
+    . /etc/rc.conf
+fi
+
+# Detecta container
+:qdetect_container
+
+# Executa serviços principais (one-shot)
+for f in /etc/runit/core-services/*.sh; do
+    [ -r "$f" ] || continue
+    msg "Executando $(basename "$f")"
+    . "$f"
+done
+
+log_ok "Inicialização completa, entrando no estágio 2..."
