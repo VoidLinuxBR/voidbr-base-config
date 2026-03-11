@@ -1,0 +1,87 @@
+# *-*-shell-*-*
+# vim: set ts=4 sw=4 et:
+
+# reset
+reset="\033[0m"
+rst="\033[0m"
+
+# estilos
+bold="\033[1m"
+dim="\033[2m"
+underline="\033[4m"
+
+# cores normais
+black="\033[30m"
+red="\033[31m"
+green="\033[32m"
+yellow="\033[33m"
+blue="\033[34m"
+magenta="\033[35m"
+cyan="\033[36m"
+white="\033[37m"
+
+# cores brilhantes
+bright_black="\033[90m"
+bright_red="\033[91m"
+bright_green="\033[92m"
+bright_yellow="\033[93m"
+bright_blue="\033[94m"
+bright_magenta="\033[95m"
+bright_cyan="\033[96m"
+bright_white="\033[97m"
+
+msg() {
+	printf "[${yellow}➡  ]$*${rst}\n"
+}
+
+msg_ok() {
+	# bold/green
+	printf "\033[1m\033[32m OK\033[m\n"
+}
+
+msg_error() {
+	# bold/red
+	printf "\033[1m\033[31mERROR: $@\033[m\n"
+}
+
+msg_warn() {
+	# bold/yellow
+	printf "\033[1m\033[33mWARNING: $@\033[m\n"
+}
+
+emergency_shell() {
+	echo
+	echo "Não é possível continuar devido aos erros acima, iniciando shell de emergência."
+	echo "Quando estiver pronto, digite exit para continuar a inicialização."
+	/bin/sh -l
+}
+
+detect_container() {
+	# LXC, podman
+	[ -z "${container+x}" ] || export IS_CONTAINER=1
+	[ -e /.dockerenv ] && export IS_CONTAINER=1
+
+	# backcompat
+	[ -n "$IS_CONTAINER" ] && export VIRTUALIZATION=1
+}
+
+deactivate_vgs() {
+	_group=${1:-All}
+	if [ -x /sbin/vgchange -o -x /bin/vgchange ]; then
+		vgs=$(vgs | wc -l)
+		if [ $vgs -gt 0 ]; then
+			msg "Desativando os Grupos de Volumes LVM $_group..."
+			vgchange -an
+		fi
+	fi
+}
+
+deactivate_crypt() {
+	if [ -x /sbin/dmsetup -o -x /bin/dmsetup ]; then
+		msg "Desativando volumes criptografados"
+		for v in $(dmsetup ls --target crypt --exec "dmsetup info -c --noheadings -o open,name"); do
+			[ ${v%%:*} = "0" ] && cryptsetup close ${v##*:} && msg "[crypt] successfully closed: ${v##*:}"
+		done
+		deactivate_vgs "Crypt"
+	fi
+}
