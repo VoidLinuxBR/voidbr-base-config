@@ -1077,8 +1077,8 @@ makebash() {
 
 		cleanup() { rm -f "$dialogRcFile"; }
 		#trap cleanup EXIT
-		MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
-		trap 'MostraErro "$APP[$FUNCNAME][$LINENO]" "$BASH_COMMAND" "$?"; exit 1' ERR
+    MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
+    trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
 
 		sh_check_terminal() { [ ! -t 1 ] && use_color=false; }
 
@@ -1252,7 +1252,7 @@ makebash() {
 		}
 
 		elevate_to_root() {
-		  log_err "This script must be run as root. Elevating privileges..."
+		  log_ok "This script must be run as root. Elevating privileges..."
 		  ccabec+='root [elevated]'
 		  # Tenta usar sudo primeiro (caso esteja configurado)
 		  if command -v sudo >/dev/null 2>&1; then
@@ -1265,12 +1265,13 @@ makebash() {
 		  die "Error: Unable to elevate privileges. Run manually as root."
 		}
 
-		replicate() {
-		  local char="${1:-#}"
-		  local nsize="${2:-$(tput cols)}"
-		  # Gera linha com substituição direta sem forks extras
-		  printf -v _line "%*s" "$nsize" && printf '%b\n' "${blue}${_line// /$char}${reset}"
-		}
+    replicate() {
+      local char="${1:-#}"
+      local nsize="${2:-$(tput cols)}"
+      # Gera linha com substituição direta sem forks extras
+      printf -v _line "%*s" "$nsize" ""
+      printf '%b\n' "${blue}${_line// /$char}${reset}"
+    }
 
 		readconf() {
 		  local msg="$1"
@@ -1331,12 +1332,12 @@ makebash() {
 		  cat <<-EOF-VERSION
 		  $(sh_copyright)
 
-		        $(gettext 'Este é um software livre: você é livre para alterá-lo e redistribuí-lo.')
-		        $(gettext 'O $APP é disponibilizado para você sob a ${yellow}Licença MIT${black}, e')
-		        $(gettext 'inclui software de código aberto sob uma variedade de outras licenças.')
-		        $(gettext 'Você pode ler instruções sobre como baixar e criar para você mesmo')
-		        $(gettext 'o código fonte específico usado para criar esta cópia.')
-		        ${red}$(gettext 'Este programa vem com absolutamente NENHUMA garantia.')${reset}
+		        $(gettext "Este é um software livre: você é livre para alterá-lo e redistribuí-lo.")
+		        $(gettext "O $APP é disponibilizado para você sob a ${yellow}Licença MIT${black}, e")
+		        $(gettext "inclui software de código aberto sob uma variedade de outras licenças.")
+		        $(gettext "Você pode ler instruções sobre como baixar e criar para você mesmo")
+		        $(gettext "o código fonte específico usado para criar esta cópia.")
+		        ${red}$(gettext "Este programa vem com absolutamente NENHUMA garantia.")${reset}
 		EOF-VERSION
 		}
 
@@ -1371,14 +1372,17 @@ makebash() {
 		}
 
 		sh_checkDependencies() {
-		  local DISTRO="$(detect_distro)"
 		  local aBlock_files=()
 		  local d
 		  local pkg
 		  local errorFound=false
 		  declare -a missing
-		  local cmsgNot="$(gettext "Não foi possível encontrar o comando")"
-		  local cmsgPkg="$(gettext "instalar pacote")"
+		  local DISTRO
+		  local cmsgNot
+		  local cmsgPkg
+		  DISTRO="$(detect_distro)"
+		  cmsgNot="$(gettext "Não foi possível encontrar o comando")"
+		  cmsgPkg="$(gettext "instalar pacote")"
 
 		  for d in "${!PACKAGEDEP[@]}"; do
 		    if ! command -v "$d" &>/dev/null; then

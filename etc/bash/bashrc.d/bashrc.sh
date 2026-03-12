@@ -1371,14 +1371,17 @@ makebash() {
 		}
 
 		sh_checkDependencies() {
-		  local DISTRO="$(detect_distro)"
 		  local aBlock_files=()
 		  local d
 		  local pkg
 		  local errorFound=false
 		  declare -a missing
-		  local cmsgNot="$(gettext "Não foi possível encontrar o comando")"
-		  local cmsgPkg="$(gettext "instalar pacote")"
+		  local DISTRO
+		  local cmsgNot
+		  local cmsgPkg
+		  DISTRO="$(detect_distro)"
+		  cmsgNot="$(gettext "Não foi possível encontrar o comando")"
+		  cmsgPkg="$(gettext "instalar pacote")"
 
 		  for d in "${!PACKAGEDEP[@]}"; do
 		    if ! command -v "$d" &>/dev/null; then
