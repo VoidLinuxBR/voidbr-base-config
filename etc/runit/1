@@ -14,7 +14,7 @@ if [ -r /etc/rc.conf ]; then
 fi
 
 # Detecta container
-:qdetect_container
+detect_container
 
 # Executa serviços principais (one-shot)
 for f in /etc/runit/core-services/*.sh; do

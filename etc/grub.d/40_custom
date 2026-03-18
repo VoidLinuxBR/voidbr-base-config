@@ -1,0 +1,59 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+function menu_reload {
+  configfile /boot/grub/grub.cfg
+}
+
+function prompt {
+  echo -n "> "
+}
+
+function is_efi {
+  if [ "${grub_platform}" = "efi" ]; then
+    return 0
+  fi
+  return 1
+}
+
+function efi_detect {
+    if is_efi ; then
+        submenu --class=find.efi --hotkey=f "Detect EFI bootloaders" {
+            efi_found=false
+
+            for efi in (*,gpt*)/efi/*/*.efi (*,gpt*)/efi/*/*/*.efi (*,gpt*)/*.efi (*,gpt*)/*/*.efi ; do
+                regexp --set=1:efi_device '^\((.*)\)/' "${efi}"
+                if [ -e "${efi}" ]; then
+                    efi_found=true
+
+                    menuentry --class=efi "${efi}" "${efi_device}" {
+                        root="${2}"
+                        chainloader "${1}"
+                    }
+                fi
+            done
+
+            if [ "${efi_found}" != true ]; then
+                menuentry --hotkey=q --class=find.none "No EFI files detected." {menu_reload}
+            else
+                menuentry --hotkey=q --class=cancel "Cancel" {menu_reload}
+            fi
+        }
+    fi
+}
+
+insmod regexp
+insmod datehook
+if ! is_efi; then
+    insmod part_gpt
+fi
+
+if is_efi; then
+    insmod efi_gop
+    insmod efi_uga
+fi
+
+efi_detect
