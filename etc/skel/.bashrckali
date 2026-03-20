@@ -101,12 +101,22 @@ if [ "$color_prompt" = yes ]; then
 		#        prompt_symbol=📡
 		#        prompt_symbol=⚡
 		#        prompt_symbol=✨
-		prompt_symbol=👮
 		#        prompt_symbol=😎
 		#        prompt_symbol=🔞
+		prompt_symbol=👮
 	else
 		prompt_symbol=💁‍
 		prompt_symbol=🦾
+    prompt_symbol='🐧  '
+    prompt_symbol='🕳️    '
+    prompt_symbol='🟢⚫🟢  '
+    prompt_symbol='○'
+    prompt_symbol='●'
+    prompt_symbol='◌ '
+    prompt_symbol='🔘   '
+    prompt_symbol='⦿ '
+    prompt_symbol='◯ ( '
+    prompt_symbol='⊙   '
 	fi
 
 	# Função para obter o status do último comando
