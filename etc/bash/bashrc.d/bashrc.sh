@@ -601,10 +601,26 @@ ddel3() {
 }
 
 voidbr-net() {
-	echo "Iniciando rede"
-	ip addr add 10.0.0.67/21 dev enp0s3
-	ip route add default via 10.0.0.254 dev enp0s3
-	ip route list
+  echo "Iniciando rede"
+
+  # pega interface física válida
+  iface=$(ip -o link show | awk -F': ' '{print $2}' \
+    | grep -E '^(eth|en)' \
+    | head -n1)
+
+  if [ -z "$iface" ]; then
+    echo "Erro: nenhuma interface válida encontrada"
+    return 1
+  fi
+
+  echo "Interface detectada: $iface"
+
+  ip link set "$iface" up
+  ip addr flush dev "$iface"
+  ip addr add 10.0.0.67/21 dev "$iface"
+  ip route add default via 10.0.0.254 dev "$iface"
+
+  ip route list
 }
 
 gpull() {
