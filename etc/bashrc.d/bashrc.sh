@@ -601,7 +601,7 @@ ddel3() {
 	find -iname $1 | xargs rm --verbose
 }
 
-net() {
+voidbr-net() {
 	echo "Iniciando rede"
 	ip addr add 10.0.0.67/21 dev enp0s3
 	ip route add default via 10.0.0.254 dev enp0s3
