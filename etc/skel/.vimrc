@@ -5,6 +5,10 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+" Silenciar avisos de clipboard e outros durante o boot
+set shortmess+=I
+set shortmess+=O
+
 " -------------------------------
 " Interface
 " -------------------------------
@@ -17,7 +21,6 @@ set title
 set laststatus=2
 set confirm
 set showmode
-" color murphy
 
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
@@ -25,7 +28,9 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " Configuração do airline
-let g:airline_theme = 'voidbrairline'
+" Tente usar um tema existente. Se 'voidbrairline' for um tema customizado seu,
+" verifique se o arquivo está em ~/.vim/plugged/vim-airline-themes/autoload/airline/themes/
+let g:airline_theme = 'dark' 
 let g:airline_voidbrairline_showmod = 1
 
 " -------------------------------
@@ -86,7 +91,11 @@ set breakindent
 " Mouse e clipboard
 " -------------------------------
 set mouse=a
-set clipboard=unnamedplus
+
+" Tenta usar o clipboard, mas não reclama se falhar
+if has('clipboard')
+    set clipboard=unnamedplus
+endif
 
 " -------------------------------
 " Encoding
@@ -101,58 +110,35 @@ set colorcolumn=80,100,120
 highlight ColorColumn guibg=#3a0000
 
 " -------------------------------
-" Statusline
+" Statusline (Sobrescreve o Airline se não for desativado)
 " -------------------------------
 hi StatusLine ctermfg=231 ctermbg=31 cterm=bold
 hi StatusLineNC ctermfg=250 ctermbg=238
-
-set statusline=
-set statusline+=\ %f
-set statusline+=\ %m
-set statusline+=\ %r
-set statusline+=\ %=
-set statusline+=\ %y
-set statusline+=\ [%{&fileencoding}]
-set statusline+=\ %l:%c
-set statusline+=\ %p%%
 
 " -------------------------------
 " Abrir direto em INSERT
 " -------------------------------
 autocmd VimEnter * startinsert
-:
+
 " -------------------------------
-" Navegação em linhas longas
+" Navegação e Atalhos
 " -------------------------------
 nnoremap j gj
 nnoremap k gk
 
-" -------------------------------
-" Copiar e colar
-" -------------------------------
+" Copiar e colar (só funcionará se o Vim tiver suporte a clipboard)
 vnoremap <C-c> "+y
 nnoremap <C-v> "+p
-
-" -------------------------------
-" Atalhos principais
-" -------------------------------
 
 " buscar
 nnoremap <C-w> /
 inoremap <C-w> <Esc>/
 
-" próxima ocorrência
-nnoremap <C-l> n
-
-" salvar
+" salvar e sair
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>a
-
-" sair
 nnoremap <C-q> :q<CR>
 inoremap <C-q> <Esc>:q<CR>
-
-" salvar e sair
 nnoremap <C-x> :x<CR>
 inoremap <C-x> <Esc>:x<CR>
 
@@ -164,34 +150,16 @@ inoremap <C-k> <Esc>ddi
 nnoremap <C-u> u
 inoremap <C-u> <Esc>u
 nnoremap <C-y> <C-r>
+inoremap <C-y> <Esc><C-r>
 
 " limpar highlight de busca
 nnoremap <leader><space> :nohlsearch<CR>
 
-" abrir config
+" abrir e recarregar config
 nnoremap <leader>v :e ~/.vimrc<CR>
-
-" recarregar config
 nnoremap <leader>r :source ~/.vimrc<CR>
 
-" -------------------------------
 " Formatter shell
-" -------------------------------
-    nnoremap <C-_> :%!shfmt -i 1 -ci -sr<CR>
-
-    " apagar linha
-nnoremap <C-k> dd
-inoremap <C-k> <Esc>ddi
-
-" desfazer (trazer linha de volta)
-nnoremap <C-u> u
-inoremap <C-u> <Esc>u
-
-" re  f
-nnoremap <C-y> <C-r>
-inoremap <C-y> <Esc><C-r>
-
-nnoremap <C-e> D
-inoremap <C-e> <Esc>Di
+nnoremap <C-_> :%!shfmt -i 1 -ci -sr<CR>
 
 map q :quit<CR>
