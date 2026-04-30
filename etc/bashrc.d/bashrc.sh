@@ -651,8 +651,8 @@ gpush() {
 	#export GH_TOKEN=
 	export EDITOR=nano
 	log_wait_msg "${red}Iniciando git push ${rst}"
-	git config --global user.name="$username"
-	git config --global user.email="$email"
+	git config --global user.name "$username"
+	git config --global user.email "$email"
 	git config credential.helper store
 	git add -A
 	git commit -m "$(date) $name ($email)"

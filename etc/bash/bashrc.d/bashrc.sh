@@ -122,6 +122,7 @@ alias versao=ver
 alias wget="wget --no-check-certificate"
 alias xcopyn="cp -Rpvan"
 alias xcopy="cp -Rpva"
+alias chili-duf='lsblk -Ao NAME,PATH,SIZE,TRAN,MODEL,LABEL,SERIAL,PTTYPE'
 
 #harbour
 alias rmake="[ ! -d /tmp/.hbmk ] && { mkdir -p /tmp/.hbmk; }; hbmk2 -info -comp=gcc   -cpp=yes -jobs=36"
@@ -650,8 +651,8 @@ gpush() {
 	#export GH_TOKEN=
 	export EDITOR=nano
 	log_wait_msg "${red}Iniciando git push ${rst}"
-	git config --global user.name="$username"
-	git config --global user.email="$email"
+	git config --global user.name "$username"
+	git config --global user.email "$email"
 	git config credential.helper store
 	git add -A
 	git commit -m "$(date) $name ($email)"
@@ -1093,8 +1094,8 @@ makebash() {
 
 		cleanup() { rm -f "$dialogRcFile"; }
 		#trap cleanup EXIT
-		MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
-		trap 'MostraErro "$APP[$FUNCNAME][$LINENO]" "$BASH_COMMAND" "$?"; exit 1' ERR
+    MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
+    trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
 
 		sh_check_terminal() { [ ! -t 1 ] && use_color=false; }
 
@@ -1268,7 +1269,7 @@ makebash() {
 		}
 
 		elevate_to_root() {
-		  log_err "This script must be run as root. Elevating privileges..."
+		  log_ok "This script must be run as root. Elevating privileges..."
 		  ccabec+='root [elevated]'
 		  # Tenta usar sudo primeiro (caso esteja configurado)
 		  if command -v sudo >/dev/null 2>&1; then
@@ -1281,12 +1282,13 @@ makebash() {
 		  die "Error: Unable to elevate privileges. Run manually as root."
 		}
 
-		replicate() {
-		  local char="${1:-#}"
-		  local nsize="${2:-$(tput cols)}"
-		  # Gera linha com substituição direta sem forks extras
-		  printf -v _line "%*s" "$nsize" && printf '%b\n' "${blue}${_line// /$char}${reset}"
-		}
+    replicate() {
+      local char="${1:-#}"
+      local nsize="${2:-$(tput cols)}"
+      # Gera linha com substituição direta sem forks extras
+      printf -v _line "%*s" "$nsize" ""
+      printf '%b\n' "${blue}${_line// /$char}${reset}"
+    }
 
 		readconf() {
 		  local msg="$1"
@@ -1347,12 +1349,12 @@ makebash() {
 		  cat <<-EOF-VERSION
 		  $(sh_copyright)
 
-		        $(gettext 'Este é um software livre: você é livre para alterá-lo e redistribuí-lo.')
-		        $(gettext 'O $APP é disponibilizado para você sob a ${yellow}Licença MIT${black}, e')
-		        $(gettext 'inclui software de código aberto sob uma variedade de outras licenças.')
-		        $(gettext 'Você pode ler instruções sobre como baixar e criar para você mesmo')
-		        $(gettext 'o código fonte específico usado para criar esta cópia.')
-		        ${red}$(gettext 'Este programa vem com absolutamente NENHUMA garantia.')${reset}
+		        $(gettext "Este é um software livre: você é livre para alterá-lo e redistribuí-lo.")
+		        $(gettext "O $APP é disponibilizado para você sob a ${yellow}Licença MIT${black}, e")
+		        $(gettext "inclui software de código aberto sob uma variedade de outras licenças.")
+		        $(gettext "Você pode ler instruções sobre como baixar e criar para você mesmo")
+		        $(gettext "o código fonte específico usado para criar esta cópia.")
+		        ${red}$(gettext "Este programa vem com absolutamente NENHUMA garantia.")${reset}
 		EOF-VERSION
 		}
 
