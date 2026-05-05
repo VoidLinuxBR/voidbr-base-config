@@ -601,6 +601,14 @@ ddel3() {
 	find -iname $1 | xargs rm --verbose
 }
 
+chili-session() {
+  local _session="$XDG_SESSION_TYPE";
+  echo "Desktop: $XDG_CURRENT_DESKTOP";
+  echo "Session: $_session"
+}
+void-session() { chili-session "$@"; }
+voidbr-session() { chili-session "$@"; }
+
 voidbr-net() {
   echo "Iniciando rede"
 
