@@ -45,7 +45,7 @@ ulimit -S -c 0 # Don't want coredumps.
 alias l=$PWD
 alias r=$OLDPWD
 alias ls="ls -la --color=auto --group-directories-first"
-alias cdg="cd /github/ChiliOS/RepoChililinux/void/current/"
+alias cdg="cd /github/RepoVoidLinux/void/current/"
 alias cdp="cd /var/cache/xbps"
 alias cda="cd /var/cache/fetch/archives"
 alias cda="cd $HOME/.local/share/applications/"
