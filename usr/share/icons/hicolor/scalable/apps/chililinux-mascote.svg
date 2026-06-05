@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Corpo -->
+  <ellipse cx="128" cy="150" rx="70" ry="90" fill="#111"/>
+  <ellipse cx="128" cy="155" rx="45" ry="70" fill="#fff"/>
+
+  <!-- Cabeça -->
+  <circle cx="128" cy="70" r="55" fill="#111"/>
+
+  <!-- Olhos -->
+  <circle cx="112" cy="65" r="8" fill="#000"/>
+  <circle cx="144" cy="65" r="8" fill="#000"/>
+  <circle cx="115" cy="62" r="2" fill="#fff"/>
+  <circle cx="147" cy="62" r="2" fill="#fff"/>
+
+  <!-- Bico (pimenta) -->
+  <path d="M155 80
+           C195 85, 205 105, 165 115
+           C140 120, 135 95, 155 80 Z"
+        fill="#e10600"/>
+
+  <!-- Cabo da pimenta -->
+  <path d="M165 78
+           C170 68, 180 65, 185 70
+           C175 75, 170 80, 165 78 Z"
+        fill="#3aa635"/>
+
+  <!-- Asas -->
+  <ellipse cx="70" cy="150" rx="18" ry="45" fill="#111"/>
+  <ellipse cx="186" cy="150" rx="18" ry="45" fill="#111"/>
+</svg>

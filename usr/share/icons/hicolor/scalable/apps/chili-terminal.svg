@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- terminal -->
+  <rect x="8" y="20" width="112" height="80" rx="10" fill="#111"></rect>
+
+  <!-- prompt -->
+  <text x="20" y="55" font-size="18" fill="#fff" font-family="monospace">
+    &gt;_
+  </text>
+
+  <!-- chili -->
+  <path d="M55 60 C85 65 90 85 60 90 Z" fill="#e10600"></path>
+  <path d="M60 58 C65 45 75 45 80 50 Z" fill="#3aa635"></path>
+</svg>

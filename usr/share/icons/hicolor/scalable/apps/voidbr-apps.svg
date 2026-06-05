@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#18d63b"/>
+    <stop offset="50%" stop-color="#0a6cff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+
+  <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#1cff4e"/>
+    <stop offset="50%" stop-color="#0a6cff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+
+  <linearGradient id="vleft" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#27ff52"/>
+    <stop offset="100%" stop-color="#0a6cff"/>
+  </linearGradient>
+
+  <linearGradient id="vright" x1="0%" y1="100%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#0a6cff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+</defs>
+
+<rect x="40" y="40" width="944" height="944" rx="120"
+      fill="#071321"
+      stroke="url(#border)"
+      stroke-width="10"/>
+
+<circle cx="512" cy="405" r="190"
+        fill="none"
+        stroke="url(#ring)"
+        stroke-width="40"/>
+
+<!-- V esquerdo -->
+<path d="M250 240
+         L495 675
+         L545 585
+         L370 270
+         L520 330
+         L540 280 Z"
+      fill="url(#vleft)"/>
+
+<!-- V direito -->
+<path d="M774 240
+         L529 675
+         L479 585
+         L654 270
+         L504 330
+         L484 280 Z"
+      fill="url(#vright)"/>
+
+<text x="512" y="820"
+      font-family="DejaVu Sans, Arial, sans-serif"
+      font-size="110"
+      font-weight="700"
+      text-anchor="middle"
+      fill="#f2f2f2">Void<tspan fill="#39e83f">B</tspan><tspan fill="#ffd400">R</tspan></text>
+
+<text x="512" y="900"
+      font-family="DejaVu Sans, Arial, sans-serif"
+      font-size="56"
+      letter-spacing="18"
+      text-anchor="middle"
+      fill="#0a6cff">APPS</text>
+
+<line x1="230" y1="885" x2="360" y2="885" stroke="#18d63b" stroke-width="6"/>
+<line x1="664" y1="885" x2="794" y2="885" stroke="#ffd400" stroke-width="6"/>
+</svg>

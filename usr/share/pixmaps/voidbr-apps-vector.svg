@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#00d84a"/>
+    <stop offset="50%" stop-color="#0077ff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+
+  <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#00ff44"/>
+    <stop offset="50%" stop-color="#0080ff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+</defs>
+
+<rect x="32" y="32" width="960" height="960" rx="120"
+      fill="#04101d" stroke="url(#ring)" stroke-width="10"/>
+
+<circle cx="512" cy="420" r="210"
+        fill="none" stroke="url(#ring)" stroke-width="42"/>
+
+<path d="M285 240
+         L512 720
+         L739 240
+         L615 300
+         L512 520
+         L409 300 Z"
+      fill="url(#vgrad)"/>
+
+</svg>
