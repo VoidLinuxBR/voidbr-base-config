@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+  <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#18d63b"/>
+    <stop offset="50%" stop-color="#0a6cff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+
+  <linearGradient id="globe" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#18d63b"/>
+    <stop offset="50%" stop-color="#0a6cff"/>
+    <stop offset="100%" stop-color="#ffd400"/>
+  </linearGradient>
+</defs>
+
+<rect x="40" y="40" width="944" height="944" rx="120"
+      fill="#071321"
+      stroke="url(#border)"
+      stroke-width="10"/>
+
+<!-- Globo -->
+<circle cx="512" cy="380" r="190"
+        fill="none"
+        stroke="url(#globe)"
+        stroke-width="36"/>
+
+<ellipse cx="512" cy="380" rx="90" ry="190"
+         fill="none"
+         stroke="url(#globe)"
+         stroke-width="18"/>
+
+<ellipse cx="512" cy="380" rx="190" ry="90"
+         fill="none"
+         stroke="url(#globe)"
+         stroke-width="18"/>
+
+<line x1="322" y1="380" x2="702" y2="380"
+      stroke="url(#globe)" stroke-width="18"/>
+
+<!-- Cursor -->
+<path d="M610 250
+         L760 560
+         L680 530
+         L630 620
+         L580 590
+         L630 500
+         L550 470 Z"
+      fill="#ffffff"/>
+
+<text x="512" y="800"
+      font-family="DejaVu Sans, Arial, sans-serif"
+      font-size="100"
+      font-weight="700"
+      text-anchor="middle"
+      fill="#f2f2f2">Void<tspan fill="#18d63b">B</tspan><tspan fill="#ffd400">R</tspan></text>
+
+<text x="512" y="890"
+      font-family="DejaVu Sans, Arial, sans-serif"
+      font-size="56"
+      font-weight="700"
+      letter-spacing="8"
+      text-anchor="middle"
+      fill="#0a6cff">WEBAPPS</text>
+</svg>
