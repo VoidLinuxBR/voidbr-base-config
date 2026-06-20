@@ -1,0 +1,8 @@
+NAME="VoidBR"
+ID="voidbr"
+PRETTY_NAME="VoidBR Linux"
+HOME_URL="https://voidbr.org/"
+DOCUMENTATION_URL="https://docs.voidbr.org/"
+LOGO="voidbr-logo"
+ANSI_COLOR="0;38;2;71;128;97"
+DISTRIB_ID="voidbr"
