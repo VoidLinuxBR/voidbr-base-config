@@ -151,6 +151,7 @@ if tty -s && [ -n "$TERM" ] && [ "$TERM" != "dumb" ] && command -v "$GRC" >/dev/
 fi
 
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
+[ -f ~/.git-prompt.sh ] && . ~/.git-prompt.sh
 [ -f ~/.bashrcfull ] && . ~/.bashrcfull
 [ -f /etc/bashrc ] && . /etc/bashrc
 [ -f ~/.bashrckali ] && . ~/.bashrckali
