@@ -51,6 +51,7 @@ post_install() {
 
 pre_upgrade() {
 	log "Iniciando upgrade"
+	rm -f /etc/grub.d/*new*
 }
 
 post_upgrade() {
