@@ -25,7 +25,7 @@ function Welcome() {
   printf "Server load    :  ${BYellow}%s${NC}\n" "$load"
   printf "Server Uptime  : ${BYellow}%s\n${NC}" "$(uptime)"
   printf "User           :  ${BYellow}%s %s\n${NC}" "$(whoami)" "$(id)"
-  printf "Link to distro :  ${BYellow}https://chililinux.com/ \n${NC}"
+  printf "Link to distro :  ${BYellow}https://voidbr.org/ \n${NC}"
   printf "Desktop        :  ${BYellow}$XDG_CURRENT_DESKTOP \n${NC}"
   printf "Session        :  ${BYellow}$XDG_SESSION_TYPE \n${NC}"
 }

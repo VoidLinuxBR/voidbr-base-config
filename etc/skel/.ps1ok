@@ -9,18 +9,18 @@ RESET="\033[0m"      # Resetar as cores
 
 # Função para obter o status do último comando
 function get_exit_status() {
-  local status="$?"
-  if [ $status -eq 0 ]; then
-    echo -e "${GREEN}✔"
-  else
-    echo -e "${RED}✘${MAGENTA}${status}"
-  fi
+	local status="$?"
+	if [ $status -eq 0 ]; then
+		echo -e "${GREEN}✔"
+	else
+		echo -e "${RED}✘${MAGENTA}${status}"
+	fi
 }
 
-if (( EUID != 0 )); then
-#  export PS1="$green\u$yellow@$cyan\h$red in $reset\w\n#"
-   export PS1="${GREEN}\u${YELLOW}@${CYAN}\h${RED}:\w\$(get_exit_status) ${RESET}\$ "
+if ((EUID != 0)); then
+	#  export PS1="$green\u$yellow@$cyan\h$red in $reset\w\n#"
+	export PS1="${GREEN}\u${YELLOW}@${CYAN}\h${RED}:\w\$(get_exit_status) ${RESET}\$ "
 else
-#  export PS1="$red\u$yellow@$cyan\h$red in $reset\w\n#"
-   export PS1="${RED}\u${YELLOW}@${CYAN}\h${RED}:\w\$(get_exit_status) ${RESET}# "
+	#  export PS1="$red\u$yellow@$cyan\h$red in $reset\w\n#"
+	export PS1="${RED}\u${YELLOW}@${CYAN}\h${RED}:\w\$(get_exit_status) ${RESET}# "
 fi

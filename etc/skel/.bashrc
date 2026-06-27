@@ -179,3 +179,4 @@ stty -ixon
 # . ~/.ps1
 # . ~/.ps1ok
 # . ~/.ps1powerline
+Welcome
