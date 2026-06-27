@@ -14,20 +14,23 @@ BWhite='\e[1;37m'  # White
 NC="\e[m"          # Color Reset
 
 function Welcome() {
-  timenow="$(date +'%H:%M')"
-  load="$(awk '{print $1 ", " $2 ", " $3}' /proc/loadavg)"
+  local timenow load distro
 
-  echo -e "${BCyan}This is BASH ${BRed}${BASH_VERSION%.*}${BCyan}- DISPLAY on ${BRed}$DISPLAY${NC}\n"
-  date
   timenow="$(date +'%H:%M')"
   load="$(awk '{print $1 ", " $2 ", " $3}' /proc/loadavg)"
-  printf 'Welcome back! The time now is %s UTC\n' "$timenow"
-  printf "Server load    :  ${BYellow}%s${NC}\n" "$load"
-  printf "Server Uptime  : ${BYellow}%s\n${NC}" "$(uptime)"
-  printf "User           :  ${BYellow}%s %s\n${NC}" "$(whoami)" "$(id)"
-  printf "Link to distro :  ${BYellow}https://voidbr.org/ \n${NC}"
-  printf "Desktop        :  ${BYellow}$XDG_CURRENT_DESKTOP \n${NC}"
-  printf "Session        :  ${BYellow}$XDG_SESSION_TYPE \n${NC}"
+  distro="$(. /etc/os-release && printf '%s %s' "$NAME" "$VERSION_ID")"
+
+  echo -e "${BCyan}Este é o BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY em ${BRed}${DISPLAY:-N/A}${NC}\n"
+  date
+
+  printf 'Bem-vindo de volta! Agora são %s UTC\n' "$timenow"
+  printf "Distribuição      : ${BYellow}%s${NC}\n" "$distro"
+  printf "Carga do servidor : ${BYellow}%s${NC}\n" "$load"
+  printf "Tempo ligado      :${BYellow}%s${NC}\n" "$(uptime)"
+  printf "Usuário           : ${BYellow}%s %s${NC}\n" "$(whoami)" "$(id)"
+  printf "Site da distro    : ${BYellow}https://voidbr.org/${NC}\n"
+  printf "Ambiente gráfico  : ${BYellow}%s${NC}\n" "${XDG_CURRENT_DESKTOP:-Não iniciado}"
+  printf "Tipo de sessão    : ${BYellow}%s${NC}\n" "${XDG_SESSION_TYPE:-Não iniciada}"
 }
 export -f Welcome
 
