@@ -28,15 +28,14 @@ function Welcome() {
 
   echo -e "${BCyan}Este é o BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY em ${BRed}${DISPLAY:-N/A}${NC}\n"
   date
-
   printf 'Bem-vindo de volta! Agora são %s UTC\n' "$timenow"
-  printf "Distribuição      : ${BYellow}%s${NC}\n" "$distro"
-  printf "Carga do servidor : ${BYellow}%s${NC}\n" "$load"
-  printf "Tempo ligado      :${BYellow}%s${NC}\n" "$(uptime)"
-  printf "Usuário           : ${BYellow}%s %s${NC}\n" "$(whoami)" "$(id)"
-  printf "Site da distro    : ${BYellow}https://voidbr.org - https://voidlinux.com.br${NC}\n"
-  printf "Ambiente gráfico  : ${BYellow}%s${NC}\n" "${XDG_CURRENT_DESKTOP:-Não iniciado}"
-  printf "Tipo de sessão    : ${BYellow}%s${NC}\n" "${XDG_SESSION_TYPE:-Não iniciada}"
+  printf "Distribuição      : ${BBlack}%s${NC}\n" "$distro"
+  printf "Carga do servidor : ${BBlack}%s${NC}\n" "$load"
+  printf "Tempo ligado      :${BBlack}%s${NC}\n" "$(uptime)"
+  printf "Usuário           : ${BBlack}%s %s${NC}\n" "$(whoami)" "$(id)"
+  printf "Site da distro    : ${BBlack}https://voidbr.org - https://voidlinux.com.br${NC}\n"
+  printf "Ambiente gráfico  : ${BBlack}%s${NC}\n" "${XDG_CURRENT_DESKTOP:-Não iniciado}"
+  printf "Tipo de sessão    : ${BBlack}%s${NC}\n" "${XDG_SESSION_TYPE:-Não iniciada}"
 }
 export -f Welcome
 
