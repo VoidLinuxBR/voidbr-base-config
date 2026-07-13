@@ -20,22 +20,22 @@ BWhite='\e[1;37m'  # White
 NC="\e[m"          # Color Reset
 
 function Welcome() {
-  local timenow load distro
+	local timenow load distro
 
-  timenow="$(date +'%H:%M')"
-  load="$(awk '{print $1 ", " $2 ", " $3}' /proc/loadavg)"
-  distro="$(. /etc/os-release && printf '%s' "$PRETTY_NAME")"
+	timenow="$(date +'%H:%M')"
+	load="$(awk '{print $1 ", " $2 ", " $3}' /proc/loadavg)"
+	distro="$(. /etc/os-release && printf '%s' "$PRETTY_NAME")"
 
-  echo -e "${BCyan}Este é o BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY em ${BRed}${DISPLAY:-N/A}${NC}\n"
-  date
-  printf 'Bem-vindo de volta! Agora são %s UTC\n' "$timenow"
-  printf "Distribuição      : ${BBlack}%s${NC}\n" "$distro"
-  printf "Carga do servidor : ${BBlack}%s${NC}\n" "$load"
-  printf "Tempo ligado      :${BBlack}%s${NC}\n" "$(uptime)"
-  printf "Usuário           : ${BBlack}%s %s${NC}\n" "$(whoami)" "$(id)"
-  printf "Site da distro    : ${BBlack}https://voidbr.org - https://voidlinux.com.br${NC}\n"
-  printf "Ambiente gráfico  : ${BBlack}%s${NC}\n" "${XDG_CURRENT_DESKTOP:-Não iniciado}"
-  printf "Tipo de sessão    : ${BBlack}%s${NC}\n" "${XDG_SESSION_TYPE:-Não iniciada}"
+	echo -e "${BCyan}Este é o BASH ${BRed}${BASH_VERSION%.*}${BCyan} - DISPLAY em ${BRed}${DISPLAY:-N/A}${NC}\n"
+	date
+	printf 'Bem-vindo de volta! Agora são %s UTC\n' "$timenow"
+	printf "Distribuição      : ${BBlack}%s${NC}\n" "$distro"
+	printf "Carga do servidor : ${BBlack}%s${NC}\n" "$load"
+	printf "Tempo ligado      :${BBlack}%s${NC}\n" "$(uptime)"
+	printf "Usuário           : ${BBlack}%s %s${NC}\n" "$(whoami)" "$(id)"
+	printf "Site da distro    : ${BBlack}https://voidbr.org - https://voidlinux.com.br${NC}\n"
+	printf "Ambiente gráfico  : ${BBlack}%s${NC}\n" "${XDG_CURRENT_DESKTOP:-Não iniciado}"
+	printf "Tipo de sessão    : ${BBlack}%s${NC}\n" "${XDG_SESSION_TYPE:-Não iniciada}"
 }
 export -f Welcome
 
@@ -186,18 +186,11 @@ fi
 [ -f ~/.bashrcfull ] && . ~/.bashrcfull
 [ -f /etc/bashrc ] && . /etc/bashrc
 [ -f ~/.bashrckali ] && . ~/.bashrckali
-
-#if ((EUID != 0)); then
-#	#	export PS1="$green\u$yellow@$cyan\h$red in $reset\w\n#"
-#	#	export PS1="${green}\u${yellow}@${cyan}\h${red}:\w\$(get_exit_status) ${reset}\$ "
-##	export PS1="${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}${GREEN}\u${YELLOW}@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$(get_exit_status) "
-#	export PS1="${GREEN}\u${YELLOW}@${CYAN}\h${MAGENTA}:\w${NC} \$(get_exit_status) "
-#else
-#	#	export PS1="$red\u$yellow@$cyan\h$red in $reset\w\n#"
-#	#	export PS1="${red}\u${yellow}@${reverse}${orange}${reset}\h${red}:\w\$(get_exit_status) ${reset}# "
-##	export PS1="${VIRTUAL_ENV:+($(basename $VIRTUAL_ENV)) }${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \$(get_exit_status) "
-#	export PS1="${RED}\u@\h${NC}:${BLUE}\w${NC} \$(get_exit_status) "
-#fi
+#[ -f /usr/share/blesh/ble.sh ] && . /usr/share/blesh/ble.sh
+#[ -f ~/.ps1 ] && . ~/.ps1
+#[ -f ~/.ps1ok ] && . ~/.ps1ok
+#[ -f ~/.ps1powerline ] && . ~/.ps1powerline
+[ -f ~/.ps1mac ] && . ~/.ps1mac
 
 export PS2="\[${yellow}\]→ \[${reset}\]"
 export PS4=$'${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
@@ -206,8 +199,4 @@ if [ -n "$DISPLAY" ] && [ -e "$HOME/.Xauthority" ]; then
 fi
 stty -ixon
 
-# . /usr/share/blesh/ble.sh
-# . ~/.ps1
-# . ~/.ps1ok
-# . ~/.ps1powerline
 Welcome
