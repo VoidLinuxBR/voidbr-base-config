@@ -165,8 +165,18 @@ toupper() { find . -name "*$1*" | while read; do mv "$REPLY" "${REPLY^^}"; done;
 has() { command -v "$1" >/dev/null; }
 printeradd() { addprinter "$@"; }
 
+lsdn() {
+	ls -CF -h --color=auto --group-directories-first -ld --color=always -- */ 2>/dev/null
+}
+
 lsd() {
-	printf "${blue}\n"
+	printf '%s' "${bold}${cyan}"
+	command ls --color=never -C -h --group-directories-first -ld -- */
+	printf '%s' "$reset"
+}
+
+lsdd() {
+	printf "${bold}${cyan}\n"
 	ls -l | awk '/^d/ {print $9}'
 	printf "${reset}"
 }
@@ -602,34 +612,34 @@ ddel3() {
 }
 
 chili-session() {
-  local _session="$XDG_SESSION_TYPE";
-  echo "Desktop: $XDG_CURRENT_DESKTOP";
-  echo "Session: $_session"
+	local _session="$XDG_SESSION_TYPE"
+	echo "Desktop: $XDG_CURRENT_DESKTOP"
+	echo "Session: $_session"
 }
 void-session() { chili-session "$@"; }
 voidbr-session() { chili-session "$@"; }
 
 voidbr-net() {
-  echo "Iniciando rede"
+	echo "Iniciando rede"
 
-  # pega interface física válida
-  iface=$(ip -o link show | awk -F': ' '{print $2}' \
-    | grep -E '^(eth|en)' \
-    | head -n1)
+	# pega interface física válida
+	iface=$(ip -o link show | awk -F': ' '{print $2}' |
+		grep -E '^(eth|en)' |
+		head -n1)
 
-  if [ -z "$iface" ]; then
-    echo "Erro: nenhuma interface válida encontrada"
-    return 1
-  fi
+	if [ -z "$iface" ]; then
+		echo "Erro: nenhuma interface válida encontrada"
+		return 1
+	fi
 
-  echo "Interface detectada: $iface"
+	echo "Interface detectada: $iface"
 
-  ip link set "$iface" up
-  ip addr flush dev "$iface"
-  ip addr add 10.0.0.67/21 dev "$iface"
-  ip route add default via 10.0.0.254 dev "$iface"
+	ip link set "$iface" up
+	ip addr flush dev "$iface"
+	ip addr add 10.0.0.67/21 dev "$iface"
+	ip route add default via 10.0.0.254 dev "$iface"
 
-  ip route list
+	ip route list
 }
 
 gpull() {
@@ -1102,8 +1112,8 @@ makebash() {
 
 		cleanup() { rm -f "$dialogRcFile"; }
 		#trap cleanup EXIT
-    MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
-    trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
+		    MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
+		    trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
 
 		sh_check_terminal() { [ ! -t 1 ] && use_color=false; }
 
@@ -1290,13 +1300,13 @@ makebash() {
 		  die "Error: Unable to elevate privileges. Run manually as root."
 		}
 
-    replicate() {
-      local char="${1:-#}"
-      local nsize="${2:-$(tput cols)}"
-      # Gera linha com substituição direta sem forks extras
-      printf -v _line "%*s" "$nsize" ""
-      printf '%b\n' "${blue}${_line// /$char}${reset}"
-    }
+		    replicate() {
+		      local char="${1:-#}"
+		      local nsize="${2:-$(tput cols)}"
+		      # Gera linha com substituição direta sem forks extras
+		      printf -v _line "%*s" "$nsize" ""
+		      printf '%b\n' "${blue}${_line// /$char}${reset}"
+		    }
 
 		readconf() {
 		  local msg="$1"
