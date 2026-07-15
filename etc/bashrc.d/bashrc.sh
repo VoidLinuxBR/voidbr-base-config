@@ -26,6 +26,7 @@ black=$(tput bold)$(tput setaf 0)
 white=$(tput bold)$(tput setaf 7)
 yellow=$(tput bold)$(tput setaf 3)
 
+export EZA_COLORS="uu=38;5;208:gu=38;5;244"
 export PS1="$red\u$yellow@$cyan\h$red $reset\w# "
 export PS4='${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
 #set -x

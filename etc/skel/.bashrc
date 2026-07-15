@@ -198,6 +198,5 @@ if [ -n "$DISPLAY" ] && [ -e "$HOME/.Xauthority" ]; then
 	export XAUTHORITY=$HOME/.Xauthority
 fi
 stty -ixon
-export EZA_COLORS="uu=38;5;208:gu=38;5;244"
 
 Welcome
