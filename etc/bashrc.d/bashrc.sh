@@ -26,7 +26,6 @@ black=$(tput bold)$(tput setaf 0)
 white=$(tput bold)$(tput setaf 7)
 yellow=$(tput bold)$(tput setaf 3)
 
-export EZA_COLORS="uu=38;5;208:gu=38;5;244"
 export PS1="$red\u$yellow@$cyan\h$red $reset\w# "
 export PS4='${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
 #set -x
@@ -58,7 +57,6 @@ alias cds="cd /var/cache/fetch/search"
 alias cdd="cd /var/cache/fetch/desc"
 alias cdl="cd /github/sci/linux"
 alias cdk="cd /github/mklive"
-alias cdx="cd /github/voidbr/voidbr-pkgmake/templates/"
 alias cdf="cd /github/fenix"
 alias cdgo="cd /chili/go/"
 
@@ -167,18 +165,8 @@ toupper() { find . -name "*$1*" | while read; do mv "$REPLY" "${REPLY^^}"; done;
 has() { command -v "$1" >/dev/null; }
 printeradd() { addprinter "$@"; }
 
-lsdn() {
-	ls -CF -h --color=auto --group-directories-first -ld --color=always -- */ 2>/dev/null
-}
-
 lsd() {
-	printf '%s' "${bold}${cyan}"
-	command ls --color=never -C -h --group-directories-first -ld -- */
-	printf '%s' "$reset"
-}
-
-lsdd() {
-	printf "${bold}${cyan}\n"
+	printf "${blue}\n"
 	ls -l | awk '/^d/ {print $9}'
 	printf "${reset}"
 }
@@ -614,34 +602,34 @@ ddel3() {
 }
 
 chili-session() {
-	local _session="$XDG_SESSION_TYPE"
-	echo "Desktop: $XDG_CURRENT_DESKTOP"
-	echo "Session: $_session"
+  local _session="$XDG_SESSION_TYPE";
+  echo "Desktop: $XDG_CURRENT_DESKTOP";
+  echo "Session: $_session"
 }
 void-session() { chili-session "$@"; }
 voidbr-session() { chili-session "$@"; }
 
 voidbr-net() {
-	echo "Iniciando rede"
+  echo "Iniciando rede"
 
-	# pega interface física válida
-	iface=$(ip -o link show | awk -F': ' '{print $2}' |
-		grep -E '^(eth|en)' |
-		head -n1)
+  # pega interface física válida
+  iface=$(ip -o link show | awk -F': ' '{print $2}' \
+    | grep -E '^(eth|en)' \
+    | head -n1)
 
-	if [ -z "$iface" ]; then
-		echo "Erro: nenhuma interface válida encontrada"
-		return 1
-	fi
+  if [ -z "$iface" ]; then
+    echo "Erro: nenhuma interface válida encontrada"
+    return 1
+  fi
 
-	echo "Interface detectada: $iface"
+  echo "Interface detectada: $iface"
 
-	ip link set "$iface" up
-	ip addr flush dev "$iface"
-	ip addr add 10.0.0.67/21 dev "$iface"
-	ip route add default via 10.0.0.254 dev "$iface"
+  ip link set "$iface" up
+  ip addr flush dev "$iface"
+  ip addr add 10.0.0.67/21 dev "$iface"
+  ip route add default via 10.0.0.254 dev "$iface"
 
-	ip route list
+  ip route list
 }
 
 gpull() {
@@ -1005,9 +993,8 @@ makebash() {
 		# -*- coding: utf-8 -*-
 		# shellcheck shell=bash disable=SC1091,SC2039,SC2166,SC2034
 		#
-		#  $prg
+		#  $prg - Wrapper for
 		#  Created: $(date)
-		#  Altered: $(date)
 		#  Updated: $(date)
 		#
 		#  Copyright (c) 2019-$(date +'%Y'), Vilmar Catafesta <vcatafesta@gmail.com>
@@ -1066,6 +1053,7 @@ makebash() {
 		)
 		# Mapa: [distro]="lista de pacotes"
 		declare -A DISTRO_PKGS=(
+		  ["voidbr"]="gettext rsync parted curl xz lvm2"
 		  ["void"]="gettext rsync parted curl xz lvm2"
 		  ["void-live"]="gettext rsync parted curl xz lvm2"
 		  ["voidlinux"]="gettext rsync parted curl xz lvm2"
@@ -1077,36 +1065,13 @@ makebash() {
 		)
 		# Mapa: [distro]="comando de instalação"
 		declare -A DISTRO_MGR=(
+		  ["voidbr"]="xbps-install -Syf"
 		  ["void"]="xbps-install -Syf"
 		  ["void-live"]="xbps-install -Syf"
 		  ["voidlinux"]="xbps-install -Syf"
 		  ["chili"]="pacman -Sy --needed --noconfirm"
 		  ["chililinux"]="pacman -Sy --needed --noconfirm"
 		  ["arch"]="pacman -Sy --needed --noconfirm"
-		  ["manjaro"]="pacman -Sy --needed --noconfirm"
-		  ["debian"]="apt-get install -y"
-		)
-		# Mapa: [distro]="lista de pacotes"
-		declare -A DISTRO_PKGS=(
-		  ["void"]="gettext rsync parted curl xz lvm2"
-		  ["void-live"]="gettext rsync parted curl xz lvm2"
-		  ["voidlinux"]="gettext rsync parted curl xz lvm2"
-		  ["chili"]="gettext rsync parted curl xz"
-		  ["chililinux"]="gettext rsync parted curl xz"
-		  ["arch"]="gettext rsync parted curl xz"
-		  ["biglinux"]="gettext rsync parted curl xz"
-		  ["manjaro"]="gettext rsync parted curl xz"
-		  ["debian"]="gettext-base rsync parted curl xz-utils"
-		)
-		# Mapa: [distro]="comando de instalação"
-		declare -A DISTRO_MGR=(
-		  ["void"]="xbps-install -Syf"
-		  ["void-live"]="xbps-install -Syf"
-		  ["voidlinux"]="xbps-install -Syf"
-		  ["chili"]="pacman -Sy --needed --noconfirm"
-		  ["chililinux"]="pacman -Sy --needed --noconfirm"
-		  ["arch"]="pacman -Sy --needed --noconfirm"
-		  ["viglinux"]="pacman -Sy --needed --noconfirm"
 		  ["manjaro"]="pacman -Sy --needed --noconfirm"
 		  ["debian"]="apt-get install -y"
 		)
@@ -1114,15 +1079,21 @@ makebash() {
 
 		cleanup() { rm -f "$dialogRcFile"; }
 		#trap cleanup EXIT
-		    MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
-		    trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
+		MostraErro() { echo "erro: ${red}$1${reset} => comando: ${cyan}'$2'${reset} => result=${yellow}$3${reset}";}
+		trap 'MostraErro "${APP[$FUNCNAME][$LINENO]}" "$BASH_COMMAND" "$?"; exit 1' ERR
 
-		sh_check_terminal() { [ ! -t 1 ] && use_color=false; }
+		has_command() {
+		  command -v "$1" >/dev/null && return 0 || return 1
+		}
+
+		sh_check_terminal() {
+		  [ ! -t 1 ] && use_color=false
+		}
 
 		set_varcolors() {
 		  sh_check_terminal
 		  # does the terminal support true-color?
-		  if [[ -n "$(command -v "tput")" ]]; then
+		  if has_command tput; then
 		    #tput setaf 127 | cat -v  #capturar saida
 		    : "${RED=$(tput bold)$(tput setaf 196)}"
 		    : "${GREEN=$(tput bold)$(tput setaf 2)}"
@@ -1186,11 +1157,12 @@ makebash() {
 		    : "${OVER="\\r\\033[K"}"
 		    : "${DOTPREFIX="  ${black}::${reset} "}"
 		    : "${clrkey=${light_white}}"
-		    : "${TICK="${clrkey}[${green}✓✓✓${clrkey}]${rst}"}"
-		    : "${CROSS="${clrkey}[${red}✗✗✗${clrkey}]${rst}"}"
-		    : "${MID="${clrkey}[${red}✗✗${green}✓${clrkey}]${rst}"}"
-		    : "${WARN="${clrkey}[${yellow}⚠  ${clrkey}]${yellow}"}"
-		    : "${INFO="${clrkey}[${yellow}➡  ${clrkey}]${rst}"}"
+		    : "${TICK="${clrkey}[${green}✓${clrkey}]${rst}"}"
+		    : "${CROSS="${clrkey}[${red}✗${clrkey}]${rst}"}"
+		    : "${MID="${clrkey}[${red}✗${green}✓${clrkey}]${rst}"}"
+		    : "${WARN="${clrkey}[${yellow}⚠${clrkey}]${yellow}"}"
+		    #: "${INFO="${clrkey}[${yellow}➜${clrkey}]${rst}"}"
+		    : "${INFO="${cyan}[⛭]${rst}"}"
 
 		    # dialog colors
 		    REVERSE="\Zr"
@@ -1210,6 +1182,7 @@ makebash() {
 		  else
 		    unset_varcolors
 		  fi
+		  ccabec="${BOLD}${WHITE}${REVERSE}${APP} ${YELLOW}v$_VERSION_ ${BLUE}https://github.com/voidlinuxbr/voidbr-utils"
 		}
 
 		unset_varcolors() {
@@ -1289,7 +1262,7 @@ makebash() {
 		}
 
 		elevate_to_root() {
-		  log_ok "This script must be run as root. Elevating privileges..."
+		  log_ok "This script must be run as root. ${INFO} Elevating privileges..."
 		  ccabec+='root [elevated]'
 		  # Tenta usar sudo primeiro (caso esteja configurado)
 		  if command -v sudo >/dev/null 2>&1; then
@@ -1302,13 +1275,13 @@ makebash() {
 		  die "Error: Unable to elevate privileges. Run manually as root."
 		}
 
-		    replicate() {
-		      local char="${1:-#}"
-		      local nsize="${2:-$(tput cols)}"
-		      # Gera linha com substituição direta sem forks extras
-		      printf -v _line "%*s" "$nsize" ""
-		      printf '%b\n' "${blue}${_line// /$char}${reset}"
-		    }
+    replicate() {
+      local char="${1:-#}"
+      local nsize="${2:-$(tput cols)}"
+      # Gera linha com substituição direta sem forks extras
+      printf -v _line "%*s" "$nsize" ""
+      printf '%b\n' "${blue}${_line// /$char}${reset}"
+    }
 
 		readconf() {
 		  local msg="$1"
