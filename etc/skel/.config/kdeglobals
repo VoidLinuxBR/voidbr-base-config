@@ -1,0 +1,10 @@
+[General]
+#TerminalApplication=kitty
+TerminalApplication=xfce4-terminal
+
+[Icons]
+#Theme=Papirus-Dark
+Theme=Breeze
+
+[UiSettings]
+ColorScheme=qt6ct
