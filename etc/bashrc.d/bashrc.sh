@@ -57,6 +57,7 @@ alias cds="cd /var/cache/fetch/search"
 alias cdd="cd /var/cache/fetch/desc"
 alias cdl="cd /github/sci/linux"
 alias cdk="cd /github/mklive"
+alias cdx="cd /github/voidbr/voidbr-pkgmake/templates/"
 alias cdf="cd /github/fenix"
 alias cdgo="cd /chili/go/"
 
