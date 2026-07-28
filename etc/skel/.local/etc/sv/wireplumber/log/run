@@ -1,0 +1,4 @@
+#!/bin/sh
+logdir="$HOME/.local/var/log/wireplumber"
+mkdir -p "$logdir"
+exec svlogd -tt "$logdir"

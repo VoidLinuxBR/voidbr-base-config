@@ -1,0 +1,32 @@
+#!/bin/sh
+
+user="${PAM_USER:?}"
+IFS=: read -r _ _ _ _ _ home shell <<EOF
+$(getent passwd "$user")
+EOF
+
+[ -n "$home" ] || exit 1
+
+mkdir -p \
+	"$home/.local/etc/sv" \
+	"$home/.local/var/service" \
+	"$home/.local/var/log" \
+	"$home/.local/var/run"
+
+chown -R "$user:$user" \
+	"$home/.local/etc" \
+	"$home/.local/var"
+
+if ! pgrep -u "$user" -f "runsvdir $home/.local/var/service" >/dev/null; then
+	su -s /bin/sh "$user" -c "
+        export HOME='$home'
+        export USER='$user'
+        export LOGNAME='$user'
+        export SHELL='$shell'
+        export PATH=/usr/bin:/usr/sbin:/bin:/sbin
+
+        exec runsvdir '$home/.local/var/service'
+    " >/dev/null 2>&1 &
+fi
+
+exit 0
