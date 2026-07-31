@@ -200,3 +200,4 @@ fi
 stty -ixon
 
 Welcome
+[ -f ~/.bashrclocal ] && . ~/.bashrlocal

@@ -1,3 +1,3 @@
 # voidbr-base-config
 
-Skel config for Void Linux BASE/SERVER
+Skel config for VoidBR BASE/SERVER
