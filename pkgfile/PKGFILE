@@ -1,7 +1,7 @@
 # Maintainer: Vilmar Catafesta <vcatafesta@gmail.com>
 
 pkgname=voidbr-base-config
-pkgdesc="Skel config for Void Linux BASE/SERVER"
+pkgdesc="Skel config for VoidBR BASE/SERVER"
 pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
 arch=('any')
