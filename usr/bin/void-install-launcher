@@ -1,0 +1,9 @@
+#!/bin/bash
+
+xfce4-terminal \
+  --font="Monospace" \
+  --geometry=162x50 \
+  --hide-menubar \
+  --hide-toolbar \
+  --disable-server \
+  -x sudo bash /usr/bin/void-install
