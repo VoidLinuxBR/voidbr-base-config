@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Terminal bash
+Comment=Executa o terminal com bash
+#Exec=xterm -fa "Monospace" -fs 11 -geometry 162x50 -e sudo bash
+Exec=xfce4-terminal --geometry=162x50 --hide-menubar --hide-toolbar --disable-server --zoom=0 -x sudo bash
+Type=Application
+DesktopNames=VoidInstall
