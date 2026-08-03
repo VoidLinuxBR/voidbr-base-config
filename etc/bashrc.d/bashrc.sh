@@ -71,8 +71,8 @@ alias dd="dd status=progress"
 alias dmesg="dmesg -T -x"
 alias dirm="ls -h -ls -Sr --color=auto"
 alias dirt="la -h -ls -Sr -rt --color=auto"
-alias dir='exa --all --long --modified --group --color=auto --'
-alias DIR='exa --all --long --modified --group --color=auto --'
+alias dir='eza --all --long --modified --group --color=auto --'
+alias DIR='eza --all --long --modified --group --color=auto --'
 alias del=rm
 alias du="du -h"
 alias dut="du -hs * | sort -h"
