@@ -31,7 +31,7 @@ bright_cyan="\033[96m"
 bright_white="\033[97m"
 
 msg() {
-	printf "[${bright_cyan}➡  ]$*${rst}\n"
+	printf "[${bright_cyan}⛭]$*${rst}\n"
 }
 
 log_ok() {
