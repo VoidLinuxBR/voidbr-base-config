@@ -115,3 +115,4 @@ NoDisplay=true
 OnlyShowIn=KDE;
 X-systemd-skip=true
 X-KDE-autostart-phase=0
+X-XFCE-Autostart-Override=true
