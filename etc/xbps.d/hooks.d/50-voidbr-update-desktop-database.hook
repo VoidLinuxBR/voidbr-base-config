@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type      = Path
+Target    = usr/share/applications/*.desktop
+
+[Action]
+Description = Atualizando banco de dados de aplicativos (.desktop)
+When        = PostTransaction
+Exec        = /usr/bin/update-desktop-database
