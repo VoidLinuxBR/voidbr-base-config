@@ -11,7 +11,19 @@ url="https://github.com/voidlinuxbr/${pkgname}"
 source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
-depends=(fzf)
+depends=(
+	bash-completion
+	fzf
+	tree
+	duf
+	parted
+	rsync
+	nvme-cli
+	curl
+	wget
+	nano
+	voidbr-nano-config
+)
 
 package() {
 	cd "${srcdir}/${pkgname}"
