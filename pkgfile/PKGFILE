@@ -23,6 +23,7 @@ depends=(
 	wget
 	nano
 	voidbr-nano-config
+	voidbr-vinstall
 )
 
 package() {
