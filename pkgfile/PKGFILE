@@ -24,6 +24,7 @@ depends=(
 	nano
 	voidbr-nano-config
 	voidbr-vinstall
+  voidbr-grub-theme
 )
 
 package() {
