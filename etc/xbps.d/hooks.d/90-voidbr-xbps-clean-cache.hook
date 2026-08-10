@@ -7,4 +7,4 @@ Target    = *
 [Action]
 Description = Removendo pacotes antigos do cache
 When        = PostTransaction
-Exec        = xbps-install --clean-cache --clean-cache
+Exec        = /usr/bin/xbps-install --clean-cache --clean-cache

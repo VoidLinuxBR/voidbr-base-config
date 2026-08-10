@@ -194,7 +194,7 @@ fi
 
 export PS2="\[${yellow}\]→ \[${reset}\]"
 export PS4=$'${red}${0##*/}${green}[$FUNCNAME]${pink}[$LINENO]${reset} '
-if [ -n "$DISPLAY" ] && [ -e "$HOME/.Xauthority" ]; then
+if [ -n "$SSH_CONNECTION" ] && [ -e "$HOME/.Xauthority" ]; then
 	export XAUTHORITY=$HOME/.Xauthority
 fi
 stty -ixon

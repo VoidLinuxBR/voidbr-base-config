@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type      = Path
+Target    = /usr/share/icons/*
+
+[Action]
+Description = Updating GTK+ icon cache
+When        = PostTransaction
+Exec        = /usr/bin/find /usr/share/icons -maxdepth 1 -mindepth 1 -type d -exec /usr/bin/gtk-update-icon-cache -q -f -t {} +
