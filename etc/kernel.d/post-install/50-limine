@@ -1,0 +1,14 @@
+#!/bin/sh
+
+PKGNAME="$1"
+VERSION="$2"
+
+case "$PKGNAME" in
+    linux*)
+        ;;
+    *)
+        exit 0
+        ;;
+esac
+
+/usr/local/bin/update-limine
