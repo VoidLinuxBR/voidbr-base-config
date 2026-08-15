@@ -1,0 +1,10 @@
+[Trigger]
+Type      = Package
+Operation = Install
+Operation = Upgrade
+Target    = linux*
+
+[Action]
+Description = Copiando kernel/initramfs pro ESP (Limine)
+When        = PostTransaction
+Exec        = /usr/local/bin/voidbr-limine-update
