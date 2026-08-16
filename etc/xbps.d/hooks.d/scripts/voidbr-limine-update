@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+KVER=$(uname -r)
+mkdir -p /boot/efi/limine
+cp -f /boot/vmlinuz-* /boot/efi/limine/ 2>/dev/null
+cp -f /boot/initramfs-*.img /boot/efi/limine/ 2>/dev/null
