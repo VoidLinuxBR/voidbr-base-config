@@ -1,6 +1,5 @@
 " VIMRC - rápido, limpo e forte
 " ===============================
-
 set nocompatible
 filetype plugin indent on
 syntax on
@@ -12,7 +11,7 @@ set shortmess+=O
 " -------------------------------
 " Interface
 " -------------------------------
-set nu!
+set number
 set ruler
 set showcmd
 set showmatch
@@ -28,16 +27,12 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " Configuração do airline
-" Tente usar um tema existente. Se 'voidbrairline' for um tema customizado seu,
-" verifique se o arquivo está em ~/.vim/plugged/vim-airline-themes/autoload/airline/themes/
-let g:airline_theme = 'dark' 
-let g:airline_voidbrairline_showmod = 1
+let g:airline_theme = 'dark'
 
 " -------------------------------
 " Indentação
 " -------------------------------
 set autoindent
-set incsearch
 set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -59,11 +54,21 @@ set nobackup
 set nowritebackup
 set noswapfile
 set hidden
-
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 set undofile
+
+" Garante que as pastas acima existam (evita fallback silencioso do Vim)
+if !isdirectory(expand('~/.vim/backup'))
+    call mkdir(expand('~/.vim/backup'), 'p')
+endif
+if !isdirectory(expand('~/.vim/swap'))
+    call mkdir(expand('~/.vim/swap'), 'p')
+endif
+if !isdirectory(expand('~/.vim/undo'))
+    call mkdir(expand('~/.vim/undo'), 'p')
+endif
 
 " -------------------------------
 " Performance
@@ -91,8 +96,6 @@ set breakindent
 " Mouse e clipboard
 " -------------------------------
 set mouse=a
-
-" Tenta usar o clipboard, mas não reclama se falhar
 if has('clipboard')
     set clipboard=unnamedplus
 endif
@@ -110,13 +113,20 @@ set colorcolumn=80,100,120
 highlight ColorColumn guibg=#3a0000
 
 " -------------------------------
-" Statusline (Sobrescreve o Airline se não for desativado)
+" Statusline (usando guifg/guibg pois termguicolors está ativo;
+" os valores cterm* antigos não tinham efeito nesse modo)
 " -------------------------------
-hi StatusLine ctermfg=231 ctermbg=31 cterm=bold
-hi StatusLineNC ctermfg=250 ctermbg=238
+hi StatusLine guifg=#ffffff guibg=#005fff cterm=bold gui=bold
+hi StatusLineNC guifg=#bcbcbc guibg=#444444
 
 " -------------------------------
-" Abrir direto em INSERT
+" Cor da linha do cursor (cursorline)
+" -------------------------------
+highlight CursorLine cterm=NONE guibg=#3a2a2a
+highlight CursorLineNr cterm=bold gui=bold guifg=#ff8787 guibg=#3a2a2a
+
+" -------------------------------
+" Abrir direto em INSERT (mantido por escolha do usuário)
 " -------------------------------
 autocmd VimEnter * startinsert
 
@@ -129,10 +139,6 @@ nnoremap k gk
 " Copiar e colar (só funcionará se o Vim tiver suporte a clipboard)
 vnoremap <C-c> "+y
 nnoremap <C-v> "+p
-
-" buscar
-nnoremap <C-w> /
-inoremap <C-w> <Esc>/
 
 " salvar e sair
 nnoremap <C-s> :w<CR>
@@ -147,8 +153,8 @@ nnoremap <C-k> dd
 inoremap <C-k> <Esc>ddi
 
 " undo / redo
-nnoremap <C-u> u
-inoremap <C-u> <Esc>u
+nnoremap <C-u> :silent! undo<CR>
+inoremap <C-u> <Esc>:silent! undo<CR>
 nnoremap <C-y> <C-r>
 inoremap <C-y> <Esc><C-r>
 
@@ -162,4 +168,6 @@ nnoremap <leader>r :source ~/.vimrc<CR>
 " Formatter shell
 nnoremap <C-_> :%!shfmt -i 1 -ci -sr<CR>
 
+" Sair rápido (mantido por escolha do usuário — atenção: sobrescreve a
+" gravação de macro nativa da tecla q)
 map q :quit<CR>
