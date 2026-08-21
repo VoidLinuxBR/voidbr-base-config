@@ -46,7 +46,8 @@ alias l=$PWD
 alias r=$OLDPWD
 alias ls="ls -la --color=auto --group-directories-first"
 alias cdg="cd /vg/void-mirror/extra/"
-alias cdp="cd /var/cache/xbps"
+alias cdp='p=$PWD; while [ -n "$p" ] && [ ! -d "$p/pkgfile" ]; do p=${p%/*}; done; [ -d "$p/pkgfile" ] && cd "$p/pkgfile"'
+alias pkg='p=$PWD; while [ -n "$p" ] && [ ! -d "$p/pkgfile" ]; do p=${p%/*}; done; [ -d "$p/pkgfile" ] && cd "$p/pkgfile"'
 alias cda="cd /var/cache/fetch/archives"
 alias cda="cd $HOME/.local/share/applications/"
 alias cdb="cd /github/"
