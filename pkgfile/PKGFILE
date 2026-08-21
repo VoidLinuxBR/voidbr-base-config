@@ -27,7 +27,7 @@ depends=(
 	wget
 	nano
 	plymouth
-	Ggrc
+	grc
 )
 
 package() {
