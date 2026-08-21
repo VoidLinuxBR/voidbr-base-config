@@ -81,7 +81,6 @@ alias dut="du -hs * | sort -h"
 alias dmesg="dmesg -T -x"
 alias dmesgerr="dmesg -T -x | grep -P '(:err |:warn )'"
 alias discos="udisksctl status"
-alias ed=nano
 alias ED=nano
 alias fs="file -s"
 alias dcomprimtar="tar -vzxf"

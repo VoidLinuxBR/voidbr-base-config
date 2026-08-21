@@ -12,10 +12,10 @@ source=("git+${url}.git")
 md5sums=('SKIP')
 makedepends=()
 depends=(
-  voidbr-xbps
+	voidbr-xbps
 	voidbr-nano-config
 	voidbr-vinstall
-# voidbr-grub-theme
+	# voidbr-grub-theme
 	bash-completion
 	fzf
 	tree
@@ -27,6 +27,7 @@ depends=(
 	wget
 	nano
 	plymouth
+	Ggrc
 )
 
 package() {
