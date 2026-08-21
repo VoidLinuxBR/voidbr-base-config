@@ -26,8 +26,8 @@ depends=(
 	curl
 	wget
 	nano
-	plymouth
-	grc
+#	plymouth
+#	grc
 )
 
 package() {
