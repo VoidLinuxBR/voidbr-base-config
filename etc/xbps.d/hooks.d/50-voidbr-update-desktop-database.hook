@@ -2,7 +2,7 @@
 Operation = Install
 Operation = Upgrade
 Type      = Path
-Target    = usr/share/applications/*.desktop
+Target    = /usr/share/applications/*.desktop
 
 [Action]
 Description = Atualizando banco de dados de aplicativos (.desktop)
