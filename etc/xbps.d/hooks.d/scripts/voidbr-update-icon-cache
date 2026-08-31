@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for dir in /usr/share/icons/*; do
+	[ -d "$dir" ] || continue
+	[ -f "$dir/index.theme" ] || continue
+	/usr/bin/gtk-update-icon-cache -q -f -t "$dir" >/dev/null 2>&1 || :
+done
+
+exit 0
+
