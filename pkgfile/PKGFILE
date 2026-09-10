@@ -26,9 +26,8 @@ depends=(
 	curl
 	wget
 	nano
-#	plymouth
-#	grc
 )
+backup=(/etc/ssh/sshd_config.d/10-custom.conf)
 
 package() {
 	cd "${srcdir}/${pkgname}"
