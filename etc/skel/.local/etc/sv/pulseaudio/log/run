@@ -1,4 +1,0 @@
-#!/bin/sh
-logdir="$HOME/.local/var/log/pulseaudio"
-mkdir -p "$logdir"
-exec svlogd -tt "$logdir"

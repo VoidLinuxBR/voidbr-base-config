@@ -1,4 +1,0 @@
-#!/bin/sh
-logdir="$HOME/.local/var/log/pipewire"
-mkdir -p "$logdir"
-exec svlogd -tt "$logdir"
