@@ -3,12 +3,13 @@
 #
 # Roda no fim do stage 1, antes do stage 2 subir qualquer serviço.
 #
-# - DM gráfico habilitado: 'plymouth quit --retain-splash'
-#   O plymouthd encerra e libera a DRM, mas não devolve o VT ao modo texto,
-#   então a imagem do splash fica na tela até o greeter assumir o display.
+# - lightdm e gdm sabem lidar com o plymouth sozinhos: fazem 'plymouth deactivate',
+#   sobem o servidor gráfico e só então 'plymouth quit --retain-splash'.
+#   Nesses casos o plymouth NÃO é encerrado aqui, para a transição ficar sem tela preta.
 #
-# - DM em modo texto (TUI) ou nenhum DM: 'plymouth quit' normal
-#   O VT volta ao modo texto, senão o login/TUI ficaria invisível atrás do splash.
+# - Qualquer outro DM (sddm, greetd, lxdm, ly, ...) ou login em texto:
+#   'plymouth quit' normal aqui, antes do DM subir, para ele conseguir pegar a DRM
+#   e o VT voltar ao modo texto.
 
 command -v plymouth >/dev/null 2>&1 || return 0
 plymouth --ping 2>/dev/null || return 0
@@ -17,15 +18,12 @@ plymouth --ping 2>/dev/null || return 0
 # e a barra de progresso dos próximos boots fica proporcional ao tempo real.
 plymouth update-root-fs --read-write 2>/dev/null
 
-gui_dms="sddm lightdm gdm greetd lxdm slim xdm nodm"
-
 svdir=/etc/runit/runsvdir/current
 [ -d "$svdir" ] || svdir=/etc/runit/runsvdir/default
 
-for dm in $gui_dms; do
+for dm in lightdm gdm; do
 	if [ -e "$svdir/$dm" ] && [ ! -e "$svdir/$dm/down" ]; then
 		plymouth display-message --text="Iniciando a interface gráfica..." 2>/dev/null
-		plymouth quit --retain-splash
 		return 0
 	fi
 done
