@@ -13,6 +13,10 @@
 command -v plymouth >/dev/null 2>&1 || return 0
 plymouth --ping 2>/dev/null || return 0
 
+# Avisa que a raiz já está rw: assim o plymouth grava a duração deste boot
+# e a barra de progresso dos próximos boots fica proporcional ao tempo real.
+plymouth update-root-fs --read-write 2>/dev/null
+
 gui_dms="sddm lightdm gdm greetd lxdm slim xdm nodm"
 
 svdir=/etc/runit/runsvdir/current
@@ -20,7 +24,7 @@ svdir=/etc/runit/runsvdir/current
 
 for dm in $gui_dms; do
 	if [ -e "$svdir/$dm" ] && [ ! -e "$svdir/$dm/down" ]; then
-		msg "Encerrando plymouth mantendo o splash até o $dm assumir o display..."
+		plymouth display-message --text="Iniciando a interface gráfica..." 2>/dev/null
 		plymouth quit --retain-splash
 		return 0
 	fi
