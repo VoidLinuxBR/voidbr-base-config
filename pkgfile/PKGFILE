@@ -26,6 +26,7 @@ depends=(
 	curl
 	wget
 	nano
+	plymouth
 )
 backup=(/etc/ssh/sshd_config.d/10-custom.conf)
 
