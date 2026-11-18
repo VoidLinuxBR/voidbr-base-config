@@ -1,10 +1,33 @@
 #!/bin/sh
+#
+# Atualiza o cache de ícones só dos temas que a transação alterou.
+# O hook usa NeedsTargets: o xbps passa no stdin o nome dos pacotes
+# (um por linha) que têm arquivos em /usr/share/icons/.
+# Na remoção o pacote já saiu do pkgdb, o xbps-query não acha os arquivos
+# e o script atualiza todos os temas (comportamento antigo).
 
-for dir in /usr/share/icons/*; do
-	[ -d "$dir" ] || continue
-	[ -f "$dir/index.theme" ] || continue
-	/usr/bin/gtk-update-icon-cache -q -f -t "$dir" >/dev/null 2>&1 || :
-done
+atualiza_tema() {
+	[ -d "$1" ] || return 0
+	[ -f "$1/index.theme" ] || return 0
+	/usr/bin/gtk-update-icon-cache -q -f -t "$1" >/dev/null 2>&1 || :
+}
+
+temas=
+[ -t 0 ] || temas=$(
+	while read -r pkg; do
+		[ -n "$pkg" ] || continue
+		/usr/bin/xbps-query -f "$pkg" 2>/dev/null
+	done | sed -n 's|^\(/usr/share/icons/[^/ ]*\)/.*|\1|p' | sort -u
+)
+
+if [ -n "$temas" ]; then
+	echo "$temas" | while read -r dir; do
+		atualiza_tema "$dir"
+	done
+else
+	for dir in /usr/share/icons/*; do
+		atualiza_tema "$dir"
+	done
+fi
 
 exit 0
-
