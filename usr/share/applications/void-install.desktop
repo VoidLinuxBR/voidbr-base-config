@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Instalar Void Linux
-GenericName=Instalar Void Linux
+Name=Instalar VoidBR
+GenericName=Instalar VoidBR
 Keywords=system;installer;install;instalador
 Exec=/usr/bin/void-install-pkexec %f
-Comment=Instalador Void Linux
+Comment=Instalador VoidBR
 Icon=/usr/share/icons/hicolor/scalable/apps/gparted.svg
 Terminal=true
 StartupNotify=true
