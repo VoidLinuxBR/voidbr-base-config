@@ -3,8 +3,11 @@
     "Homepage": {
       "URL": "https://voidbr.org",
       "Locked": false,
+      "Additional": ["about:home"],
       "StartPage": "homepage"
     },
+    "OverrideFirstRunPage": "",
+    "OverridePostUpdatePage": "",
     "DisableFirefoxStudies": true,
     "DisableTelemetry": true,
     "DontCheckDefaultBrowser": true,
