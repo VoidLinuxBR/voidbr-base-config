@@ -8,3 +8,4 @@ Target    = /usr/share/icons/*
 Description = Updating GTK+ icon cache
 When        = PostTransaction
 Exec        = /etc/xbps.d/hooks.d/scripts/voidbr-update-icon-cache
+NeedsTargets

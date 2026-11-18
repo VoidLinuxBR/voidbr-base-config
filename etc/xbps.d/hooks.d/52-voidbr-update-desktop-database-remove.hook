@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Remove
+Type      = Package
+Target    = *
+
+[Action]
+Description = Atualizando banco de dados de aplicativos (.desktop)
+When        = PostTransaction
+Exec        = /usr/bin/update-desktop-database /usr/share/applications
