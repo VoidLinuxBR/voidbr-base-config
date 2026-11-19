@@ -68,6 +68,15 @@ post_install() {
     log "Finalizando instalação"
   fi
 	rm -f /etc/grub.d/*new*
+	# ed -> nano, só se ainda não existir nenhum ed (link ou arquivo): o
+	# voidbr-goedit traz o seu próprio /usr/local/bin/ed -> goedit e não pode
+	# ser sobrescrito. Antes isso era feito via sudo num script do
+	# /etc/profile.d, a cada login, e travava pedindo senha pra usuários sem
+	# NOPASSWD (ex: o _greeter do greetd).
+	if [ ! -e /usr/local/bin/ed ] && [ ! -L /usr/local/bin/ed ]; then
+		install -d /usr/local/bin
+		ln -s /usr/bin/nano /usr/local/bin/ed
+	fi
 
 }
 
