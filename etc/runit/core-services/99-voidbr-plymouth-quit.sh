@@ -52,6 +52,25 @@ _voidbr_dm_enabled() {
 	[ -e "$svdir/$1" ] && [ ! -e "$svdir/$1/down" ]
 }
 
+# Encerra o plymouth (argumentos extras vão para o 'plymouth quit'), espera o
+# plymouthd sumir de fato (até 2 s) e reaplica a fonte do console no tty1:
+# ao sair, o plymouth costuma voltar a fonte para a padrão do kernel.
+# Mesma fonte que o 03-console-setup.sh aplica (FONT do /etc/rc.conf).
+_voidbr_plymouth_quit() {
+	plymouth quit "$@"
+	i=0
+	while [ "$i" -lt 20 ]; do
+		pgrep -x plymouthd >/dev/null 2>&1 || break
+		sleep 0.1
+		i=$((i + 1))
+	done
+	(
+		. /etc/rc.conf 2>/dev/null
+		[ -n "$FONT" ] && setfont ${FONT_MAP:+-m "$FONT_MAP"} \
+			${FONT_UNIMAP:+-u "$FONT_UNIMAP"} "$FONT" -C /dev/tty1
+	) >/dev/null 2>&1
+}
+
 # Segura o agetty-tty1 (se estiver habilitado) até o plymouth sair.
 _voidbr_hold_getty1() {
 	_voidbr_dm_enabled agetty-tty1 || return 0
@@ -115,9 +134,9 @@ for entry in sddm:'^sddm-greeter' greetd:'^(cosmic-greeter|noctalia-greete)'; do
 			i=$((i + 1))
 		done
 		if [ "$i" -lt 300 ]; then
-			plymouth quit --retain-splash
+			_voidbr_plymouth_quit --retain-splash
 		else
-			plymouth quit
+			_voidbr_plymouth_quit
 		fi
 		sleep 2
 		_voidbr_release_getty1
@@ -142,7 +161,7 @@ for entry in lxdm:'lxdm|lxdm-binary' emptty:emptty slim:slim xdm:xdm nodm:nodm; 
 			sleep 0.1
 			i=$((i + 1))
 		done
-		plymouth quit
+		_voidbr_plymouth_quit
 		# Dá tempo do DM sair do tty1.
 		sleep 2
 		_voidbr_release_getty1
@@ -150,4 +169,4 @@ for entry in lxdm:'lxdm|lxdm-binary' emptty:emptty slim:slim xdm:xdm nodm:nodm; 
 	return 0
 done
 
-plymouth quit
+_voidbr_plymouth_quit
