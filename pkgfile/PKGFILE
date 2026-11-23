@@ -15,6 +15,7 @@ depends=(
 	voidbr-xbps
 	voidbr-nano-config
 	voidbr-vinstall
+	voidbr-voidbrctl
 	# voidbr-grub-theme
 	bash-completion
 	fzf
