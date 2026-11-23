@@ -7,15 +7,17 @@
 #   sobem o servidor gráfico e só então 'plymouth quit --retain-splash'.
 #   Nesses casos o plymouth NÃO é encerrado aqui.
 #
-# - sddm, greetd, lxdm, emptty, slim, xdm e nodm não falam com o plymouth.
-#   O splash fica na tela durante o stage 2 e um processo em segundo plano
-#   espera o DM subir para só então dar o 'plymouth quit'. Isso cobre também a
-#   espera do sddm pelo dbus ('sv check dbus || exit 1' no run, que o runsv
-#   repete a cada 1 s).
+# - sddm e greetd não falam com o plymouth. O splash fica na tela durante o
+#   stage 2 e um processo em segundo plano espera o greeter subir para só então
+#   dar 'plymouth quit --retain-splash'. Até lá o último quadro do splash segue
+#   na tela mesmo depois da troca para o tty7 (detalhes no laço do sddm/greetd
+#   abaixo), sem tela preta enquanto o compositor do greeter inicializa.
+#   Com o plymouth vivo, a troca de VT passa por ele (VT_PROCESS); ao sair, o
+#   tty1 fica em VT_PROCESS com dono morto e o kernel o devolve ao modo texto
+#   na próxima troca (reset_vc em drivers/tty/vt/vt_ioctl.c).
 #
-#   'plymouth quit' normal, sem --retain-splash: o --retain-splash deixa o tty1
-#   em KD_GRAPHICS e o kernel ignora troca de VT saindo de um VT assim
-#   (change_console em drivers/tty/vt/vt_ioctl.c); o sddm do Void sobe no tty7.
+# - lxdm, emptty, slim, xdm e nodm: 'plymouth quit' normal quando o processo
+#   do DM aparece.
 #
 # - agetty-tty1: o agetty toma o tty1 à força (TIOCSCTTY + vhangup) e tira o
 #   tty1 do plymouth, mostrando o /etc/issue e o login antes do DM subir.
@@ -88,9 +90,44 @@ for dm in lightdm gdm; do
 	return 0
 done
 
+# sddm e greetd: o plymouth fica vivo até o greeter subir.
+# Quando o DM troca para o tty7, o plymouth recebe o aviso de troca de VT
+# (VT_PROCESS), só solta o DRM (drmDropMaster) e o último quadro do splash
+# continua na tela: o DM deixa o tty7 em KD_GRAPHICS, então o fbcon não
+# desenha nada por cima. O compositor do greeter assume o vídeo direto desse
+# quadro. Só então 'plymouth quit --retain-splash', que sai sem limpar a tela
+# (sem ele o plymouth apagaria o splash e devolveria o VT).
+# serviço:processo do greeter (regex do pgrep sobre o nome do processo;
+# o nome é cortado em 15 caracteres)
+for entry in sddm:'^sddm-greeter' greetd:'^(cosmic-greeter|noctalia-greete)'; do
+	dm="${entry%%:*}"
+	greeter="${entry#*:}"
+	_voidbr_dm_enabled "$dm" || continue
+
+	plymouth display-message --text="Iniciando a interface gráfica..." 2>/dev/null
+	_voidbr_hold_getty1
+	(
+		# Até 30 s (300 x 0,1 s): greeter que não sobe não pode deixar o splash preso.
+		i=0
+		while [ "$i" -lt 300 ]; do
+			pgrep "$greeter" >/dev/null 2>&1 && break
+			sleep 0.1
+			i=$((i + 1))
+		done
+		if [ "$i" -lt 300 ]; then
+			plymouth quit --retain-splash
+		else
+			plymouth quit
+		fi
+		sleep 2
+		_voidbr_release_getty1
+	) </dev/null >/dev/null 2>&1 &
+	return 0
+done
+
+# Outros DMs: encerra quando o processo do DM aparece.
 # serviço:processo (nome que o pgrep -x enxerga depois do exec no run)
-for entry in sddm:sddm greetd:greetd lxdm:'lxdm|lxdm-binary' emptty:emptty \
-	slim:slim xdm:xdm nodm:nodm; do
+for entry in lxdm:'lxdm|lxdm-binary' emptty:emptty slim:slim xdm:xdm nodm:nodm; do
 	dm="${entry%%:*}"
 	proc="${entry#*:}"
 	_voidbr_dm_enabled "$dm" || continue
@@ -106,7 +143,7 @@ for entry in sddm:sddm greetd:greetd lxdm:'lxdm|lxdm-binary' emptty:emptty \
 			i=$((i + 1))
 		done
 		plymouth quit
-		# Dá tempo do DM sair do tty1 (o sddm leva ~0,3 s até o tty7).
+		# Dá tempo do DM sair do tty1.
 		sleep 2
 		_voidbr_release_getty1
 	) </dev/null >/dev/null 2>&1 &
