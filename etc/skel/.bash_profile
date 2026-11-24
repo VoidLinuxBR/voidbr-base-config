@@ -4,16 +4,6 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# Inicia o Sway automaticamente no TTY1
-#if [ -z "$WAYLAND_DISPLAY" ] &&
-#  [ "${XDG_VTNR:-0}" -eq 1 ]; then
-#  # Variáveis para garantir que aplicativos GTK/Qt respeitem o tema e o Wayland
-#  export QT_QPA_PLATFORM=wayland
-#  export MOZ_ENABLE_WAYLAND=1
-#
-#  exec sway
-#fi
-
 # Sobe o X automaticamente no login do tty1, para instalações sem display
 # manager (modo "xorg minimal": só o servidor X e um xterm, sem WM).
 #
